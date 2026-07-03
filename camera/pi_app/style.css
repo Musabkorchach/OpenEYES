@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #101820;
+  color: white;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 24px;
+}
+
+select,
+button {
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+pre {
+  background: #1f2933;
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+}

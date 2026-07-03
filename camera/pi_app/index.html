@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenEyes Robot Vision</title>
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    <script>
+      Pi.init({ version: "2.0", sandbox: true });
+    </script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <select id="languageSelect" onchange="setLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="ar">العربية</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="de">Deutsch</option>
+        <option value="pt">Português</option>
+        <option value="tr">Türkçe</option>
+        <option value="zh">中文</option>
+        <option value="hi">हिन्दी</option>
+      </select>
+
+      <h1 data-i18n="title">OpenEyes</h1>
+      <h2 data-i18n="subtitle">
+        Open-source robotic vision for the Pi ecosystem
+      </h2>
+
+      <p data-i18n="description">
+        OpenEyes is an AI vision project designed to become a robotic eye that
+        can help robots see, understand, and interact with the world.
+      </p>
+
+      <button onclick="loginWithPi()" data-i18n="login">Login with Pi</button>
+
+      <section>
+        <h3 data-i18n="missionTitle">Mission</h3>
+        <p data-i18n="missionText">
+          Build a community-powered robotic vision system where Pioneers can
+          contribute ideas, testing, data, code, and real-world use cases.
+        </p>
+      </section>
+
+      <pre id="output"></pre>
+    </main>
+
+    <script src="translations.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
