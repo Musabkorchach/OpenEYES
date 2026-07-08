@@ -1,34 +1,49 @@
-from datetime import datetime
+"""
+==================================================
+OpenEyes Vision OS
+
+Module : Memory Engine
+Version: 0.2
+
+Description:
+Stores active tracked objects and detects when
+objects appear or disappear from the scene.
+==================================================
+"""
 
 
 class MemoryEngine:
     def __init__(self):
-        self.seen_objects = {}
+        self.active_objects = {}
 
-    def remember(self, detections):
+    def remember(self, tracked_objects):
         events = []
-        current_time = datetime.now().strftime("%H:%M:%S")
+        current_ids = set()
 
-        for item in detections:
-            name = item["name"]
-            confidence = item["confidence"]
+        for item in tracked_objects:
+            object_id = item.get("id")
+            label = item.get("name", "object")
+            center = item.get("center")
 
-            if name not in self.seen_objects:
-                self.seen_objects[name] = {
-                    "first_seen": current_time,
-                    "last_seen": current_time,
-                    "count": 1,
-                    "confidence": confidence,
-                }
+            if object_id is None:
+                continue
 
-                events.append(f"New object detected: {name}")
+            current_ids.add(object_id)
 
-            else:
-                self.seen_objects[name]["last_seen"] = current_time
-                self.seen_objects[name]["count"] += 1
-                self.seen_objects[name]["confidence"] = confidence
+            if object_id not in self.active_objects:
+                events.append(f"New object detected: {label} #{object_id}")
+
+            self.active_objects[object_id] = {
+                "label": label,
+                "center": center,
+            }
+
+        previous_ids = set(self.active_objects.keys())
+        disappeared_ids = previous_ids - current_ids
+
+        for object_id in disappeared_ids:
+            label = self.active_objects[object_id]["label"]
+            events.append(f"Object disappeared: {label} #{object_id}")
+            del self.active_objects[object_id]
 
         return events
-
-    def summary(self):
-        return self.seen_objects
